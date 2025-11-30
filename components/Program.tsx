@@ -53,17 +53,23 @@ const Program: React.FC = () => {
       script.src = 'https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js';
       script.charset = 'UTF-8';
       script.className = 'daum_roughmap_loader_script';
+
+      const executeScript = document.createElement('script');
+      executeScript.charset = 'UTF-8';
+      executeScript.text = `
+        new daum.roughmap.Lander({
+          "timestamp" : "1758955056424",
+          "key" : "9ttv8jh4qs4",
+          "mapWidth" : "100%",
+          "mapHeight" : "360"
+        }).render();
+      `;
+
       script.onload = () => {
-        // Initialize map after script loads
-        if (window.daum && window.daum.roughmap) {
-          new window.daum.roughmap.Lander({
-            timestamp: '1758955056424',
-            key: '9ttv8jh4qs4',
-            mapWidth: '100%',
-            mapHeight: '360'
-          }).render();
-        }
+        // Execute map initialization after loader is ready
+        document.body.appendChild(executeScript);
       };
+
       document.body.appendChild(script);
 
       return () => {
@@ -71,6 +77,9 @@ const Program: React.FC = () => {
         const existingScript = document.querySelector('.daum_roughmap_loader_script');
         if (existingScript) {
           existingScript.remove();
+        }
+        if (executeScript.parentNode) {
+          executeScript.remove();
         }
       };
     }
