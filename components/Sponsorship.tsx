@@ -16,11 +16,25 @@ const Sponsorship: React.FC = () => {
   useEffect(() => {
     const fetchDonations = async () => {
       try {
+        // Try summary endpoint first (privacy-focused)
         const response = await fetch('https://script.google.com/macros/s/AKfycbzJ2ZC8f6u3DM6fEHvNYELh5LCAuUl9WYcASJICY5qBJ4BxpWsuJ72t5Kk6AqDuv6WHLg/exec?sheet=Donations&summary=true');
         const data = await response.json();
 
+        console.log('Donations response:', data);
+
+        // If summary endpoint works
         if (data.success && data.total !== undefined) {
+          console.log('Using summary total:', data.total);
           setCurrentAmount(data.total);
+        }
+        // Fallback: calculate from full data
+        else if (data.data && Array.isArray(data.data)) {
+          const total = data.data.reduce((sum: number, row: any) => {
+            const amount = parseFloat(row.amount) || 0;
+            return sum + amount;
+          }, 0);
+          console.log('Calculated total from data:', total);
+          setCurrentAmount(total);
         }
       } catch (error) {
         console.error('Error fetching donations:', error);
