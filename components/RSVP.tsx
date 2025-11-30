@@ -9,6 +9,13 @@ interface RSVPModalProps {
 const RSVPModal: React.FC<RSVPModalProps> = ({ isOpen, onClose }) => {
   const [submitted, setSubmitted] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    studentId: '',
+    phone: '',
+    companions: '본인 외 없음',
+    message: ''
+  });
 
   useEffect(() => {
     if (isOpen) {
@@ -31,12 +38,41 @@ const RSVPModal: React.FC<RSVPModalProps> = ({ isOpen, onClose }) => {
     }, 300);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate API call
-    setTimeout(() => {
-        setSubmitted(true);
-    }, 1000);
+
+    try {
+      const response = await fetch('https://script.google.com/macros/s/AKfycbwUd4wBcrInPgXJNQpfeBU1RNB4JEw8ZlLQhRG2Ym1o56r2J3GRroEcu_023pnBldoq8A/exec', {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          sheet: 'RSVP',
+          data: {
+            name: formData.name,
+            studentId: formData.studentId,
+            phone: formData.phone,
+            companions: formData.companions,
+            message: formData.message,
+            timestamp: new Date().toISOString()
+          }
+        })
+      });
+
+      setSubmitted(true);
+      setFormData({
+        name: '',
+        studentId: '',
+        phone: '',
+        companions: '본인 외 없음',
+        message: ''
+      });
+    } catch (error) {
+      console.error('Error submitting RSVP:', error);
+      setSubmitted(true);
+    }
   };
 
   if (!isOpen && !isClosing) return null;
@@ -69,23 +105,23 @@ const RSVPModal: React.FC<RSVPModalProps> = ({ isOpen, onClose }) => {
               <div className="space-y-4">
                 <div>
                   <label className="block text-xs uppercase tracking-widest text-gold-500 mb-2">성함</label>
-                  <input type="text" required className="w-full bg-black/40 border border-gray-700 text-white px-4 py-3 focus:outline-none focus:border-gold-500 transition-colors rounded-sm" placeholder="홍길동" />
+                  <input type="text" required value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} className="w-full bg-black/40 border border-gray-700 text-white px-4 py-3 focus:outline-none focus:border-gold-500 transition-colors rounded-sm" placeholder="홍길동" />
                 </div>
-                
+
                 <div className="grid grid-cols-2 gap-4">
                     <div>
                         <label className="block text-xs uppercase tracking-widest text-gold-500 mb-2">기수 (학번)</label>
-                        <input type="text" required className="w-full bg-black/40 border border-gray-700 text-white px-4 py-3 focus:outline-none focus:border-gold-500 transition-colors rounded-sm" placeholder="ex) 15기 (04학번)" />
+                        <input type="text" required value={formData.studentId} onChange={(e) => setFormData({...formData, studentId: e.target.value})} className="w-full bg-black/40 border border-gray-700 text-white px-4 py-3 focus:outline-none focus:border-gold-500 transition-colors rounded-sm" placeholder="ex) 15기 (04학번)" />
                     </div>
                     <div>
                         <label className="block text-xs uppercase tracking-widest text-gold-500 mb-2">연락처</label>
-                        <input type="tel" required className="w-full bg-black/40 border border-gray-700 text-white px-4 py-3 focus:outline-none focus:border-gold-500 transition-colors rounded-sm" placeholder="010-0000-0000" />
+                        <input type="tel" required value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value})} className="w-full bg-black/40 border border-gray-700 text-white px-4 py-3 focus:outline-none focus:border-gold-500 transition-colors rounded-sm" placeholder="010-0000-0000" />
                     </div>
                 </div>
 
                 <div>
                   <label className="block text-xs uppercase tracking-widest text-gold-500 mb-2">동반 인원</label>
-                  <select className="w-full bg-black/40 border border-gray-700 text-white px-4 py-3 focus:outline-none focus:border-gold-500 transition-colors rounded-sm">
+                  <select value={formData.companions} onChange={(e) => setFormData({...formData, companions: e.target.value})} className="w-full bg-black/40 border border-gray-700 text-white px-4 py-3 focus:outline-none focus:border-gold-500 transition-colors rounded-sm">
                     <option>본인 외 없음</option>
                     <option>본인 외 1인</option>
                     <option>본인 외 2인</option>
@@ -95,7 +131,7 @@ const RSVPModal: React.FC<RSVPModalProps> = ({ isOpen, onClose }) => {
 
                 <div>
                   <label className="block text-xs uppercase tracking-widest text-gold-500 mb-2">남기실 말씀</label>
-                  <textarea rows={3} className="w-full bg-black/40 border border-gray-700 text-white px-4 py-3 focus:outline-none focus:border-gold-500 transition-colors rounded-sm resize-none" placeholder="문의사항이나 축하 메시지를 남겨주세요"></textarea>
+                  <textarea rows={3} value={formData.message} onChange={(e) => setFormData({...formData, message: e.target.value})} className="w-full bg-black/40 border border-gray-700 text-white px-4 py-3 focus:outline-none focus:border-gold-500 transition-colors rounded-sm resize-none" placeholder="문의사항이나 축하 메시지를 남겨주세요"></textarea>
                 </div>
               </div>
 
