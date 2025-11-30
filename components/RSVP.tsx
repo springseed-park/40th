@@ -41,37 +41,48 @@ const RSVPModal: React.FC<RSVPModalProps> = ({ isOpen, onClose }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    const payload = {
+      sheet: 'RSVP',
+      data: {
+        name: formData.name,
+        studentId: formData.studentId,
+        phone: formData.phone,
+        companions: formData.companions,
+        message: formData.message,
+        timestamp: new Date().toISOString()
+      }
+    };
+
+    console.log('Sending RSVP data:', payload);
+
     try {
       const response = await fetch('https://script.google.com/macros/s/AKfycbzJ2ZC8f6u3DM6fEHvNYELh5LCAuUl9WYcASJICY5qBJ4BxpWsuJ72t5Kk6AqDuv6WHLg/exec', {
         method: 'POST',
-        mode: 'no-cors',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'text/plain',
         },
-        body: JSON.stringify({
-          sheet: 'RSVP',
-          data: {
-            name: formData.name,
-            studentId: formData.studentId,
-            phone: formData.phone,
-            companions: formData.companions,
-            message: formData.message,
-            timestamp: new Date().toISOString()
-          }
-        })
+        body: JSON.stringify(payload),
+        redirect: 'follow'
       });
 
-      setSubmitted(true);
-      setFormData({
-        name: '',
-        studentId: '',
-        phone: '',
-        companions: '본인 외 없음',
-        message: ''
-      });
+      const result = await response.json();
+      console.log('RSVP Response:', result);
+
+      if (result.success) {
+        setSubmitted(true);
+        setFormData({
+          name: '',
+          studentId: '',
+          phone: '',
+          companions: '본인 외 없음',
+          message: ''
+        });
+      } else {
+        alert('신청 중 오류가 발생했습니다: ' + (result.error || '알 수 없는 오류'));
+      }
     } catch (error) {
       console.error('Error submitting RSVP:', error);
-      setSubmitted(true);
+      alert('신청 중 오류가 발생했습니다. 다시 시도해주세요.');
     }
   };
 
@@ -104,24 +115,24 @@ const RSVPModal: React.FC<RSVPModalProps> = ({ isOpen, onClose }) => {
 
               <div className="space-y-4">
                 <div>
-                  <label className="block text-xs uppercase tracking-widest text-gold-500 mb-2">성함</label>
+                  <label className="block text-xs uppercase tracking-widest text-gold-500 mb-2">성함 *</label>
                   <input type="text" required value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} className="w-full bg-black/40 border border-gray-700 text-white px-4 py-3 focus:outline-none focus:border-gold-500 transition-colors rounded-sm" placeholder="홍길동" />
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                     <div>
-                        <label className="block text-xs uppercase tracking-widest text-gold-500 mb-2">기수 (학번)</label>
+                        <label className="block text-xs uppercase tracking-widest text-gold-500 mb-2">기수 (학번) *</label>
                         <input type="text" required value={formData.studentId} onChange={(e) => setFormData({...formData, studentId: e.target.value})} className="w-full bg-black/40 border border-gray-700 text-white px-4 py-3 focus:outline-none focus:border-gold-500 transition-colors rounded-sm" placeholder="ex) 15기 (04학번)" />
                     </div>
                     <div>
-                        <label className="block text-xs uppercase tracking-widest text-gold-500 mb-2">연락처</label>
+                        <label className="block text-xs uppercase tracking-widest text-gold-500 mb-2">연락처 *</label>
                         <input type="tel" required value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value})} className="w-full bg-black/40 border border-gray-700 text-white px-4 py-3 focus:outline-none focus:border-gold-500 transition-colors rounded-sm" placeholder="010-0000-0000" />
                     </div>
                 </div>
 
                 <div>
-                  <label className="block text-xs uppercase tracking-widest text-gold-500 mb-2">동반 인원</label>
-                  <select value={formData.companions} onChange={(e) => setFormData({...formData, companions: e.target.value})} className="w-full bg-black/40 border border-gray-700 text-white px-4 py-3 focus:outline-none focus:border-gold-500 transition-colors rounded-sm">
+                  <label className="block text-xs uppercase tracking-widest text-gold-500 mb-2">동반 인원 *</label>
+                  <select required value={formData.companions} onChange={(e) => setFormData({...formData, companions: e.target.value})} className="w-full bg-black/40 border border-gray-700 text-white px-4 py-3 focus:outline-none focus:border-gold-500 transition-colors rounded-sm">
                     <option>본인 외 없음</option>
                     <option>본인 외 1인</option>
                     <option>본인 외 2인</option>

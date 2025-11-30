@@ -19,11 +19,16 @@ const Sponsorship: React.FC = () => {
         const response = await fetch('https://script.google.com/macros/s/AKfycbzJ2ZC8f6u3DM6fEHvNYELh5LCAuUl9WYcASJICY5qBJ4BxpWsuJ72t5Kk6AqDuv6WHLg/exec?sheet=Donations');
         const data = await response.json();
 
+        console.log('Donations data:', data);
+
         if (data.data && Array.isArray(data.data)) {
           const total = data.data.reduce((sum: number, row: any) => {
             const amount = parseFloat(row.amount) || 0;
+            console.log('Row:', row, 'Amount:', amount);
             return sum + amount;
           }, 0);
+
+          console.log('Total donations:', total);
           setCurrentAmount(total);
         }
       } catch (error) {
