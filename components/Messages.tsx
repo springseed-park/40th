@@ -57,23 +57,30 @@ const Messages: React.FC = () => {
     };
 
     try {
-      await fetch('https://script.google.com/macros/s/AKfycbzJ2ZC8f6u3DM6fEHvNYELh5LCAuUl9WYcASJICY5qBJ4BxpWsuJ72t5Kk6AqDuv6WHLg/exec', {
+      const payload = {
+        sheet: 'Guestbook',
+        data: {
+          name: newName,
+          studentId: newStudentId,
+          content: newContent,
+          date: newMessage.date,
+          timestamp: new Date().toISOString()
+        }
+      };
+
+      console.log('Sending message data:', payload);
+
+      const response = await fetch('https://script.google.com/macros/s/AKfycbzJ2ZC8f6u3DM6fEHvNYELh5LCAuUl9WYcASJICY5qBJ4BxpWsuJ72t5Kk6AqDuv6WHLg/exec', {
         method: 'POST',
-        mode: 'no-cors',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'text/plain',
         },
-        body: JSON.stringify({
-          sheet: 'Guestbook',
-          data: {
-            name: newName,
-            studentId: newStudentId,
-            content: newContent,
-            date: newMessage.date,
-            timestamp: new Date().toISOString()
-          }
-        })
+        body: JSON.stringify(payload),
+        redirect: 'follow'
       });
+
+      const result = await response.json();
+      console.log('Message Response:', result);
     } catch (error) {
       console.error('Error submitting message:', error);
     }
