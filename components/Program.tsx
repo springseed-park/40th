@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ProgramItem } from '../types';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 import { MapPin, Clock, Phone, Mail, Calendar } from 'lucide-react';
@@ -46,6 +46,36 @@ const ProgramRow: React.FC<{ item: ProgramItem; index: number }> = ({ item, inde
 const Program: React.FC = () => {
   const { elementRef: mapRef, isVisible: mapVisible } = useIntersectionObserver();
 
+  useEffect(() => {
+    if (mapVisible) {
+      // Load Daum Roughmap script
+      const script = document.createElement('script');
+      script.src = 'https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js';
+      script.charset = 'UTF-8';
+      script.className = 'daum_roughmap_loader_script';
+      script.onload = () => {
+        // Initialize map after script loads
+        if (window.daum && window.daum.roughmap) {
+          new window.daum.roughmap.Lander({
+            timestamp: '1758955056424',
+            key: '9ttv8jh4qs4',
+            mapWidth: '100%',
+            mapHeight: '360'
+          }).render();
+        }
+      };
+      document.body.appendChild(script);
+
+      return () => {
+        // Cleanup
+        const existingScript = document.querySelector('.daum_roughmap_loader_script');
+        if (existingScript) {
+          existingScript.remove();
+        }
+      };
+    }
+  }, [mapVisible]);
+
   return (
     <section id="program" className="py-24 bg-midnight">
       <div className="max-w-6xl mx-auto px-6">
@@ -61,27 +91,23 @@ const Program: React.FC = () => {
         {/* Info Grid (Map & Details) */}
         <div className="grid md:grid-cols-2 gap-8 mb-20">
             {/* Map Section */}
-            <div 
+            <div
                 ref={mapRef}
                 className={`relative h-80 rounded-lg overflow-hidden border border-gray-700 shadow-2xl transition-all duration-1000 ${
                     mapVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
                 }`}
             >
-                {/* Static Map Image Placeholder - In real app, use Google Maps Embed API */}
-                <img 
-                    src="https://upload.wikimedia.org/wikipedia/commons/e/ec/Grand_Walkerhill_Seoul.jpg" 
-                    alt="Grand Walkerhill Seoul" 
-                    className="w-full h-full object-cover filter brightness-75 hover:brightness-100 transition-all duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-6">
-                    <a 
-                        href="https://www.google.com/maps/search/?api=1&query=Grand+Walkerhill+Seoul" 
-                        target="_blank" 
+                {/* Daum Map */}
+                <div id="daumRoughmapContainer" className="w-full h-full"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-6 pointer-events-none">
+                    <a
+                        href="https://map.kakao.com/?urlX=521978&urlY=1128434&urlLevel=3&itemId=10854299&q=%EA%B7%B8%EB%9E%9C%EB%93%9C%20%EC%9B%8C%EC%BB%A4%ED%9E%90%20%EC%84%9C%EC%9A%B8&srcid=10854299&map_type=TYPE_MAP"
+                        target="_blank"
                         rel="noreferrer"
-                        className="inline-flex items-center space-x-2 text-white bg-gold-600/90 hover:bg-gold-500 px-4 py-2 rounded-full backdrop-blur-sm transition-colors text-sm font-bold"
+                        className="inline-flex items-center space-x-2 text-white bg-gold-600/90 hover:bg-gold-500 px-4 py-2 rounded-full backdrop-blur-sm transition-colors text-sm font-bold pointer-events-auto"
                     >
                         <MapPin size={16} />
-                        <span>Google Map 보기</span>
+                        <span>카카오맵 보기</span>
                     </a>
                 </div>
             </div>
