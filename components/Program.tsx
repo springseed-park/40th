@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { ProgramItem } from '../types';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 import { MapPin, Clock, Phone, Mail, Calendar } from 'lucide-react';
@@ -46,39 +46,6 @@ const ProgramRow: React.FC<{ item: ProgramItem; index: number }> = ({ item, inde
 const Program: React.FC = () => {
   const { elementRef: mapRef, isVisible: mapVisible } = useIntersectionObserver();
 
-  useEffect(() => {
-    if (mapVisible) {
-      // Load Daum Roughmap loader script
-      const loaderScript = document.createElement('script');
-      loaderScript.src = 'https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js';
-      loaderScript.charset = 'UTF-8';
-      loaderScript.className = 'daum_roughmap_loader_script';
-
-      loaderScript.onload = () => {
-        // Execute map initialization after loader completes
-        setTimeout(() => {
-          if (window.daum && window.daum.roughmap) {
-            new window.daum.roughmap.Lander({
-              timestamp: '1764484090046',
-              key: 'dgzxi5m7kvo',
-              mapWidth: '640',
-              mapHeight: '360'
-            }).render();
-          }
-        }, 100);
-      };
-
-      document.body.appendChild(loaderScript);
-
-      return () => {
-        const script = document.querySelector('.daum_roughmap_loader_script');
-        if (script) {
-          script.remove();
-        }
-      };
-    }
-  }, [mapVisible]);
-
   return (
     <section id="program" className="py-24 bg-midnight">
       <div className="max-w-6xl mx-auto px-6">
@@ -100,14 +67,18 @@ const Program: React.FC = () => {
                     mapVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
                 }`}
             >
-                {/* Daum Roughmap Container */}
-                <div id="daumRoughmapContainer1764484090046" className="root_daum_roughmap root_daum_roughmap_landing w-full h-full"></div>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-6 pointer-events-none">
+                {/* Kakao Static Map - Same location as Roughmap */}
+                <img
+                    src="https://staticmap.kakao.com/map/mapservice?FORMAT=PNG&SCALE=2.5&MX=595535&MY=792985&S=0&IW=640&IH=360&LANG=0&COORDSTM=WCONGNAMUL&logo=kakao_logo"
+                    alt="행사 장소 지도"
+                    className="w-full h-full object-cover filter brightness-90 hover:brightness-100 transition-all duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-6">
                     <a
                         href="https://map.kakao.com/?urlX=595535&urlY=792985&urlLevel=3&map_type=TYPE_MAP&map_hybrid=false"
                         target="_blank"
                         rel="noreferrer"
-                        className="inline-flex items-center space-x-2 text-white bg-gold-600/90 hover:bg-gold-500 px-4 py-2 rounded-full backdrop-blur-sm transition-colors text-sm font-bold pointer-events-auto"
+                        className="inline-flex items-center space-x-2 text-white bg-gold-600/90 hover:bg-gold-500 px-4 py-2 rounded-full backdrop-blur-sm transition-colors text-sm font-bold"
                     >
                         <MapPin size={16} />
                         <span>카카오맵 보기</span>
