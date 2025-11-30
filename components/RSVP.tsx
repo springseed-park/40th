@@ -42,7 +42,7 @@ const RSVPModal: React.FC<RSVPModalProps> = ({ isOpen, onClose }) => {
     e.preventDefault();
 
     try {
-      const response = await fetch('https://script.google.com/macros/s/AKfycbwUd4wBcrInPgXJNQpfeBU1RNB4JEw8ZlLQhRG2Ym1o56r2J3GRroEcu_023pnBldoq8A/exec', {
+      const response = await fetch('https://script.google.com/macros/s/AKfycbzJ2ZC8f6u3DM6fEHvNYELh5LCAuUl9WYcASJICY5qBJ4BxpWsuJ72t5Kk6AqDuv6WHLg/exec', {
         method: 'POST',
         mode: 'no-cors',
         headers: {

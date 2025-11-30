@@ -57,7 +57,7 @@ const Messages: React.FC = () => {
     };
 
     try {
-      await fetch('https://script.google.com/macros/s/AKfycbwUd4wBcrInPgXJNQpfeBU1RNB4JEw8ZlLQhRG2Ym1o56r2J3GRroEcu_023pnBldoq8A/exec', {
+      await fetch('https://script.google.com/macros/s/AKfycbzJ2ZC8f6u3DM6fEHvNYELh5LCAuUl9WYcASJICY5qBJ4BxpWsuJ72t5Kk6AqDuv6WHLg/exec', {
         method: 'POST',
         mode: 'no-cors',
         headers: {
@@ -89,7 +89,7 @@ const Messages: React.FC = () => {
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        const response = await fetch('https://script.google.com/macros/s/AKfycbwUd4wBcrInPgXJNQpfeBU1RNB4JEw8ZlLQhRG2Ym1o56r2J3GRroEcu_023pnBldoq8A/exec?sheet=Guestbook');
+        const response = await fetch('https://script.google.com/macros/s/AKfycbzJ2ZC8f6u3DM6fEHvNYELh5LCAuUl9WYcASJICY5qBJ4BxpWsuJ72t5Kk6AqDuv6WHLg/exec?sheet=Guestbook');
         const data = await response.json();
 
         if (data.data && Array.isArray(data.data)) {
