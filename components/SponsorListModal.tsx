@@ -6,20 +6,35 @@ interface SponsorListModalProps {
   onClose: () => void;
 }
 
-const sponsors = [
-  '1기 김철수', '1기 이영희', '2기 박민수', '2기 최지우', 
-  '3기 홍길동', '3기 강동원', '4기 정우성', '4기 송중기', 
-  '5기 아이유', '5기 유재석', '6기 강호동', '6기 신동엽', 
-  '7기 박명수', '7기 정준하', '8기 하동훈', '8기 노홍철', 
-  '9기 정형돈', '9기 길성준', '10기 전진', '10기 황광희',
-  '11기 양세형', '11기 조세호', '12기 남창희', '12기 이광수', 
-  '13기 김종국', '13기 송지효', '14기 지석진', '14기 양세찬', 
-  '15기 전소민', '15기 하하', '16기 유연석', '16기 손호준',
-  '익명 후원자 1', '익명 후원자 2'
-];
-
 const SponsorListModal: React.FC<SponsorListModalProps> = ({ isOpen, onClose }) => {
   const [isClosing, setIsClosing] = useState(false);
+  const [sponsors, setSponsors] = useState<string[]>([]);
+
+  // Fetch sponsors from Google Sheets
+  useEffect(() => {
+    const fetchSponsors = async () => {
+      try {
+        const response = await fetch('https://script.google.com/macros/s/AKfycbwUd4wBcrInPgXJNQpfeBU1RNB4JEw8ZlLQhRG2Ym1o56r2J3GRroEcu_023pnBldoq8A/exec?sheet=Donations');
+        const data = await response.json();
+
+        if (data.data && Array.isArray(data.data)) {
+          const sponsorNames = data.data.map((row: any) => {
+            if (row.anonymous === 'true' || row.anonymous === true) {
+              return '익명 후원자';
+            }
+            return row.name || '익명 후원자';
+          });
+          setSponsors(sponsorNames);
+        }
+      } catch (error) {
+        console.error('Error fetching sponsors:', error);
+      }
+    };
+
+    if (isOpen) {
+      fetchSponsors();
+    }
+  }, [isOpen]);
 
   useEffect(() => {
     if (isOpen) {

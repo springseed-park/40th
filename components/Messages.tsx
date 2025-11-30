@@ -44,7 +44,7 @@ const Messages: React.FC = () => {
   const [newStudentId, setNewStudentId] = useState('83학번');
   const [newContent, setNewContent] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newName || !newContent) return;
 
@@ -56,12 +56,62 @@ const Messages: React.FC = () => {
       date: new Date().toLocaleDateString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' }),
     };
 
+    try {
+      await fetch('https://script.google.com/macros/s/AKfycbwUd4wBcrInPgXJNQpfeBU1RNB4JEw8ZlLQhRG2Ym1o56r2J3GRroEcu_023pnBldoq8A/exec', {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          sheet: 'Guestbook',
+          data: {
+            name: newName,
+            studentId: newStudentId,
+            content: newContent,
+            date: newMessage.date,
+            timestamp: new Date().toISOString()
+          }
+        })
+      });
+    } catch (error) {
+      console.error('Error submitting message:', error);
+    }
+
     setMessages([newMessage, ...messages]);
     setNewName('');
     setNewStudentId('83학번');
     setNewContent('');
     setIsModalOpen(false);
   };
+
+  // Fetch messages from Google Sheets every 30 seconds
+  useEffect(() => {
+    const fetchMessages = async () => {
+      try {
+        const response = await fetch('https://script.google.com/macros/s/AKfycbwUd4wBcrInPgXJNQpfeBU1RNB4JEw8ZlLQhRG2Ym1o56r2J3GRroEcu_023pnBldoq8A/exec?sheet=Guestbook');
+        const data = await response.json();
+
+        if (data.data && Array.isArray(data.data)) {
+          const formattedMessages: Message[] = data.data.map((row: any, index: number) => ({
+            id: row.timestamp ? new Date(row.timestamp).getTime() : Date.now() - index,
+            name: row.name || '',
+            studentId: row.studentId || '',
+            content: row.content || '',
+            date: row.date || ''
+          }));
+          setMessages(formattedMessages);
+        }
+      } catch (error) {
+        console.error('Error fetching messages:', error);
+      }
+    };
+
+    fetchMessages();
+    const interval = setInterval(fetchMessages, 30000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   // Prevent background scrolling when modal is open
   useEffect(() => {

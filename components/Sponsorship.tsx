@@ -7,11 +7,39 @@ const Sponsorship: React.FC = () => {
   const { elementRef, isVisible } = useIntersectionObserver();
   const [progress, setProgress] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
-  // Data Settings
-  const goalAmount = 10000000; // 1,000만원
-  const currentAmount = 4250000; // 현재 모금액 (예시)
+  const [currentAmount, setCurrentAmount] = useState(0);
+  const [goalAmount, setGoalAmount] = useState(10000000);
+
   const percentage = Math.min((currentAmount / goalAmount) * 100, 100);
+
+  // Fetch donation data from Google Sheets
+  useEffect(() => {
+    const fetchDonations = async () => {
+      try {
+        const response = await fetch('https://script.google.com/macros/s/AKfycbwUd4wBcrInPgXJNQpfeBU1RNB4JEw8ZlLQhRG2Ym1o56r2J3GRroEcu_023pnBldoq8A/exec?sheet=Donations');
+        const data = await response.json();
+
+        if (data.data && Array.isArray(data.data)) {
+          const total = data.data.reduce((sum: number, row: any) => {
+            const amount = parseFloat(row.amount) || 0;
+            return sum + amount;
+          }, 0);
+          setCurrentAmount(total);
+
+          if (data.data.length > 0 && data.data[0].goal) {
+            setGoalAmount(parseFloat(data.data[0].goal) || 10000000);
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching donations:', error);
+      }
+    };
+
+    fetchDonations();
+    const interval = setInterval(fetchDonations, 60000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     if (isVisible) {
