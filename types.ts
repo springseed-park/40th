@@ -17,3 +17,21 @@ export interface GalleryImage {
   caption: string;
   span: boolean; // if true, spans 2 columns
 }
+
+// Daum Map types
+declare global {
+  interface Window {
+    daum?: {
+      roughmap?: {
+        Lander: new (config: {
+          timestamp: string;
+          key: string;
+          mapWidth: string;
+          mapHeight: string;
+        }) => {
+          render: () => void;
+        };
+      };
+    };
+  }
+}
