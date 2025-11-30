@@ -75,7 +75,7 @@ const Program: React.FC = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-6">
                     <a
-                        href="https://map.kakao.com/?urlX=595535&urlY=792985&urlLevel=3&map_type=TYPE_MAP&map_hybrid=false"
+                        href="https://map.kakao.com/?map_type=TYPE_MAP&itemId=926047643&urlLevel=3&urlX=595535&urlY=792985"
                         target="_blank"
                         rel="noreferrer"
                         className="inline-flex items-center space-x-2 text-white bg-gold-600/90 hover:bg-gold-500 px-4 py-2 rounded-full backdrop-blur-sm transition-colors text-sm font-bold"
