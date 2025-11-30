@@ -19,10 +19,9 @@ const SponsorListModal: React.FC<SponsorListModalProps> = ({ isOpen, onClose }) 
 
         if (data.data && Array.isArray(data.data)) {
           const sponsorNames = data.data.map((row: any) => {
-            if (row.anonymous === 'true' || row.anonymous === true) {
-              return '익명 후원자';
-            }
-            return row.name || '익명 후원자';
+            const studentId = row.studentId || '';
+            const name = row.name || '익명';
+            return studentId ? `${studentId} ${name}` : name;
           });
           setSponsors(sponsorNames);
         }
