@@ -25,10 +25,6 @@ const Sponsorship: React.FC = () => {
             return sum + amount;
           }, 0);
           setCurrentAmount(total);
-
-          if (data.data.length > 0 && data.data[0].goal) {
-            setGoalAmount(parseFloat(data.data[0].goal) || 10000000);
-          }
         }
       } catch (error) {
         console.error('Error fetching donations:', error);
