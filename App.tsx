@@ -40,8 +40,8 @@ function App() {
       <main>
         <Hero onOpenRsvp={openRsvp} />
         <Sponsorship />
-        <Messages />
         <Program />
+        <Messages />
       </main>
       <Footer />
       <RSVPModal isOpen={isRsvpOpen} onClose={closeRsvp} />
