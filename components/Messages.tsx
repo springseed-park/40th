@@ -106,7 +106,7 @@ const Messages: React.FC = () => {
             studentId: row.studentId || '',
             content: row.content || '',
             date: row.date || ''
-          }));
+          })).sort((a, b) => b.id - a.id); // Sort by newest first
           setMessages(formattedMessages);
         }
       } catch (error) {
