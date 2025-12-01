@@ -4,12 +4,12 @@ import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 import { MapPin, Clock, Phone, Mail, Calendar } from 'lucide-react';
 
 const programData: ProgramItem[] = [
-  { time: '17:00', title: '리셉션 (Reception)', description: '등록 및 웰컴 드링크 리셉션' },
-  { time: '18:00', title: '개회식 (Opening)', description: '개회사 및 40주년 기념 영상 상영', speaker: '회장 김철수' },
-  { time: '18:30', title: '특별 강연 (Special Talk)', description: '동문이 전하는 "우리의 지난 40년"', speaker: '1기 동문 대표' },
-  { time: '19:10', title: '만찬 및 네트워킹', description: '호텔 코스 요리 및 자유로운 네트워킹' },
-  { time: '20:30', title: '시상 및 경품 추첨', description: '공로상 시상 및 경품 추첨' },
-  { time: '21:00', title: '폐회 (Closing)', description: '폐회사 및 단체 사진 촬영' },
+  { time: '12:00', title: '행사장 입장', description: '행사장 입장 및 차담회' },
+  { time: '13:00', title: '전시 및 영상관람', description: '개회사 및 40주년 기념 영상 상영'},
+  { time: '15:00', title: '사전행사', description: '사물놀이 공연, 퀴즈, 장기자랑', speaker: '사회자' },
+  { time: '16:00', title: '시상', description: '개회선언, 참석자인사, 감사패 및 공로상수여' },
+  { time: '17:00', title: '식사 및 담소', description: '저녁식사와 함께 담소' },
+  { time: '18:00', title: '폐회', description: '폐회사 및 단체 사진 촬영' },
 ];
 
 const ProgramRow: React.FC<{ item: ProgramItem; index: number }> = ({ item, index }) => {
@@ -80,7 +80,7 @@ const Program: React.FC = () => {
                         rel="noreferrer"
                         className="inline-flex items-center space-x-2 text-white bg-gold-600/90 hover:bg-gold-500 px-4 py-2 rounded-full backdrop-blur-sm transition-colors text-sm font-bold"
                     >
-                        <MapPin size={16} />
+                        <MapPin size={20} />
                         <span>카카오맵 보기</span>
                     </a>
                 </div>
@@ -94,7 +94,7 @@ const Program: React.FC = () => {
                         <span className="text-sm font-bold tracking-widest uppercase">일시 (Date & Time)</span>
                     </div>
                     <p className="text-2xl text-white font-serif">2026. 05. 30 (토)</p>
-                    <p className="text-xl text-gray-300">17:00 ~ 21:00</p>
+                    <p className="text-xl text-gray-300">12:00 ~ 18:00</p>
                 </div>
 
                 <div className="space-y-2">
@@ -102,16 +102,17 @@ const Program: React.FC = () => {
                         <MapPin size={20} />
                         <span className="text-sm font-bold tracking-widest uppercase">장소 (Location)</span>
                     </div>
-                    <p className="text-2xl text-white font-serif">그랜드 워커힐 서울</p>
-                    <p className="text-gray-300">서울 광진구 워커힐로 177, 애스톤 하우스</p>
+                    <p className="text-2xl text-white font-serif">한남대학교 무어아트홀</p>
+                    <p className="text-gray-300">대전 대덕구 한남로18번길 11</p>
                 </div>
 
+                {/* 잠시 주석처리
                 <div className="pt-6 border-t border-gray-700 grid grid-cols-2 gap-4">
                     <div className="flex items-center space-x-3">
                         <Phone className="text-gold-500" size={18} />
                         <div>
                             <p className="text-xs text-gray-500 uppercase">문의 (Contact)</p>
-                            <p className="text-gray-300 text-sm">02-1234-5678</p>
+                            <p className="text-gray-300 text-sm">010-1234-1234</p>
                         </div>
                     </div>
                     <div className="flex items-center space-x-3">
@@ -122,6 +123,7 @@ const Program: React.FC = () => {
                         </div>
                     </div>
                 </div>
+                */}
             </div>
         </div>
         
