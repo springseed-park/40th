@@ -9,10 +9,12 @@ interface SponsorListModalProps {
 const SponsorListModal: React.FC<SponsorListModalProps> = ({ isOpen, onClose }) => {
   const [isClosing, setIsClosing] = useState(false);
   const [sponsors, setSponsors] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   // Fetch sponsors from Google Sheets
   useEffect(() => {
     const fetchSponsors = async () => {
+      setIsLoading(true);
       try {
         const response = await fetch('https://script.google.com/macros/s/AKfycbzJ2ZC8f6u3DM6fEHvNYELh5LCAuUl9WYcASJICY5qBJ4BxpWsuJ72t5Kk6AqDuv6WHLg/exec?sheet=Donations');
         const data = await response.json();
@@ -27,6 +29,8 @@ const SponsorListModal: React.FC<SponsorListModalProps> = ({ isOpen, onClose }) 
         }
       } catch (error) {
         console.error('Error fetching sponsors:', error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -82,17 +86,25 @@ const SponsorListModal: React.FC<SponsorListModalProps> = ({ isOpen, onClose }) 
               모든 선후배님들께 깊은 감사를 드립니다.
             </p>
           </div>
-          
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-            {sponsors.map((name, index) => (
-              <div 
-                key={index} 
-                className="bg-white/5 border border-white/10 rounded px-3 py-2 text-center text-sm text-gray-300 hover:border-gold-500/50 hover:text-gold-400 hover:bg-white/10 transition-all duration-300"
-              >
-                {name}
-              </div>
-            ))}
-          </div>
+
+          {isLoading ? (
+            // Loading State
+            <div className="flex flex-col items-center justify-center py-12">
+              <div className="w-12 h-12 border-4 border-gold-500/30 border-t-gold-500 rounded-full animate-spin mb-4"></div>
+              <p className="text-gray-400 text-sm">후원자 명단을 불러오는 중...</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+              {sponsors.map((name, index) => (
+                <div
+                  key={index}
+                  className="bg-white/5 border border-white/10 rounded px-3 py-2 text-center text-sm text-gray-300 hover:border-gold-500/50 hover:text-gold-400 hover:bg-white/10 transition-all duration-300"
+                >
+                  {name}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
         <div className="p-4 border-t border-white/10 bg-black/20 text-center">

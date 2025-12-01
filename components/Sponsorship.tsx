@@ -9,6 +9,7 @@ const Sponsorship: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentAmount, setCurrentAmount] = useState(0);
   const [goalAmount, setGoalAmount] = useState(10000000);
+  const [isLoading, setIsLoading] = useState(true);
 
   const percentage = Math.min((currentAmount / goalAmount) * 100, 100);
 
@@ -38,6 +39,8 @@ const Sponsorship: React.FC = () => {
         }
       } catch (error) {
         console.error('Error fetching donations:', error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -74,32 +77,52 @@ const Sponsorship: React.FC = () => {
         </div>
 
         {/* Progress Card */}
-        <div 
+        <div
           ref={elementRef}
           className={`bg-white/5 border border-white/10 rounded-2xl p-8 md:p-12 mb-12 transition-all duration-1000 transform ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
         >
-          <div className="flex justify-between items-end mb-4">
-            <div>
-              <span className="text-gray-400 text-sm uppercase tracking-widest block mb-1">현재 모금 현황</span>
-              <span className="text-3xl md:text-5xl font-bold text-white font-serif">{percentage.toFixed(1)}%</span>
+          {isLoading ? (
+            // Loading Skeleton
+            <div className="animate-pulse">
+              <div className="flex justify-between items-end mb-4">
+                <div>
+                  <div className="h-4 w-24 bg-gray-700 rounded mb-2"></div>
+                  <div className="h-12 w-32 bg-gray-700 rounded"></div>
+                </div>
+                <div className="text-right">
+                  <div className="h-8 w-40 bg-gray-700 rounded mb-1"></div>
+                  <div className="h-4 w-32 bg-gray-700 rounded"></div>
+                </div>
+              </div>
+              <div className="w-full h-4 bg-gray-800 rounded-full mb-8"></div>
+              <div className="h-24 bg-gray-800/50 rounded-lg"></div>
             </div>
-            <div className="text-right">
-              <span className="text-gold-400 font-bold text-xl md:text-2xl">{formatCurrency(currentAmount)}</span>
-              <span className="text-gray-500 text-sm block">/ 목표 {formatCurrency(goalAmount)}</span>
-            </div>
-          </div>
+          ) : (
+            <>
+              <div className="flex justify-between items-end mb-4">
+                <div>
+                  <span className="text-gray-400 text-sm uppercase tracking-widest block mb-1">현재 모금 현황</span>
+                  <span className="text-3xl md:text-5xl font-bold text-white font-serif">{percentage.toFixed(1)}%</span>
+                </div>
+                <div className="text-right">
+                  <span className="text-gold-400 font-bold text-xl md:text-2xl">{formatCurrency(currentAmount)}</span>
+                  <span className="text-gray-500 text-sm block">/ 목표 {formatCurrency(goalAmount)}</span>
+                </div>
+              </div>
 
-          {/* Progress Bar Container */}
-          <div className="w-full h-4 bg-gray-800 rounded-full overflow-hidden mb-8 relative">
-            <div 
-              className="h-full bg-gradient-to-r from-gold-600 to-gold-400 transition-all duration-1500 ease-out relative"
-              style={{ width: `${progress}%` }}
-            >
-              <div className="absolute inset-0 bg-white/20 animate-pulse"></div>
-            </div>
-          </div>
+              {/* Progress Bar Container */}
+              <div className="w-full h-4 bg-gray-800 rounded-full overflow-hidden mb-8 relative">
+                <div
+                  className="h-full bg-gradient-to-r from-gold-600 to-gold-400 transition-all duration-1500 ease-out relative"
+                  style={{ width: `${progress}%` }}
+                >
+                  <div className="absolute inset-0 bg-white/20 animate-pulse"></div>
+                </div>
+              </div>
+            </>
+          )}
 
           <div className="grid md:grid-cols-2 gap-8 items-center bg-black/30 p-6 rounded-lg border border-white/5">
             <div className="flex items-center space-x-4">

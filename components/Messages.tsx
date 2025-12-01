@@ -38,7 +38,8 @@ const Messages: React.FC = () => {
   const { elementRef, isVisible } = useIntersectionObserver();
   const [messages, setMessages] = useState<Message[]>(initialMessages);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
+  const [isLoading, setIsLoading] = useState(true);
+
   // Form State
   const [newName, setNewName] = useState('');
   const [newStudentId, setNewStudentId] = useState('83학번');
@@ -111,6 +112,8 @@ const Messages: React.FC = () => {
         }
       } catch (error) {
         console.error('Error fetching messages:', error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -155,31 +158,55 @@ const Messages: React.FC = () => {
         </div>
 
         {/* Message Grid - Full Width */}
-        <div 
+        <div
             ref={elementRef}
             className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
-            {messages.map((msg, idx) => (
-            <div 
-                key={msg.id} 
-                className={`group relative bg-white/5 border border-white/10 rounded-lg p-6 hover:bg-white/10 hover:border-gold-500/30 transition-all duration-300 transform ${
-                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-                }`}
-                style={{ transitionDelay: `${idx * 50}ms` }}
-            >
-                <Quote className="absolute top-4 right-4 text-white/5 group-hover:text-gold-500/20 transition-colors" size={40} />
-                <p className="text-gray-300 text-sm leading-relaxed mb-6 min-h-[4rem] relative z-10 break-keep">
-                "{msg.content}"
-                </p>
-                <div className="flex justify-between items-end border-t border-white/5 pt-4">
-                <div className="flex flex-col">
-                    <span className="text-gold-400 font-bold text-sm">{msg.name}</span>
-                    <span className="text-gray-500 text-xs mt-0.5">{msg.studentId}</span>
+            {isLoading ? (
+              // Loading Skeleton
+              [...Array(6)].map((_, idx) => (
+                <div
+                  key={idx}
+                  className="bg-white/5 border border-white/10 rounded-lg p-6 animate-pulse"
+                  style={{ animationDelay: `${idx * 100}ms` }}
+                >
+                  <div className="space-y-3 mb-6">
+                    <div className="h-3 bg-gray-700 rounded w-full"></div>
+                    <div className="h-3 bg-gray-700 rounded w-5/6"></div>
+                    <div className="h-3 bg-gray-700 rounded w-4/6"></div>
+                  </div>
+                  <div className="flex justify-between items-end border-t border-white/5 pt-4">
+                    <div className="space-y-2">
+                      <div className="h-4 bg-gray-700 rounded w-20"></div>
+                      <div className="h-3 bg-gray-700 rounded w-16"></div>
+                    </div>
+                    <div className="h-3 bg-gray-700 rounded w-20"></div>
+                  </div>
                 </div>
-                <span className="text-gray-600 text-xs font-mono">{msg.date}</span>
+              ))
+            ) : (
+              messages.map((msg, idx) => (
+                <div
+                  key={msg.id}
+                  className={`group relative bg-white/5 border border-white/10 rounded-lg p-6 hover:bg-white/10 hover:border-gold-500/30 transition-all duration-300 transform ${
+                    isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+                  }`}
+                  style={{ transitionDelay: `${idx * 50}ms` }}
+                >
+                  <Quote className="absolute top-4 right-4 text-white/5 group-hover:text-gold-500/20 transition-colors" size={40} />
+                  <p className="text-gray-300 text-sm leading-relaxed mb-6 min-h-[4rem] relative z-10 break-keep">
+                    "{msg.content}"
+                  </p>
+                  <div className="flex justify-between items-end border-t border-white/5 pt-4">
+                    <div className="flex flex-col">
+                      <span className="text-gold-400 font-bold text-sm">{msg.name}</span>
+                      <span className="text-gray-500 text-xs mt-0.5">{msg.studentId}</span>
+                    </div>
+                    <span className="text-gray-600 text-xs font-mono">{msg.date}</span>
+                  </div>
                 </div>
-            </div>
-            ))}
+              ))
+            )}
         </div>
       </div>
 
