@@ -121,8 +121,8 @@ const RSVPModal: React.FC<RSVPModalProps> = ({ isOpen, onClose }) => {
 
                 <div className="grid grid-cols-2 gap-4">
                     <div>
-                        <label className="block text-xs uppercase tracking-widest text-gold-500 mb-2">기수 (학번) *</label>
-                        <input type="text" required value={formData.studentId} onChange={(e) => setFormData({...formData, studentId: e.target.value})} className="w-full bg-black/40 border border-gray-700 text-white px-4 py-3 focus:outline-none focus:border-gold-500 transition-colors rounded-sm" placeholder="ex) 15기 (04학번)" />
+                        <label className="block text-xs uppercase tracking-widest text-gold-500 mb-2">학번 *</label>
+                        <input type="text" required value={formData.studentId} onChange={(e) => setFormData({...formData, studentId: e.target.value})} className="w-full bg-black/40 border border-gray-700 text-white px-4 py-3 focus:outline-none focus:border-gold-500 transition-colors rounded-sm" placeholder="예: 04학번" />
                     </div>
                     <div>
                         <label className="block text-xs uppercase tracking-widest text-gold-500 mb-2">연락처 *</label>
