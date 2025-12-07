@@ -39,6 +39,7 @@ const Messages: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>(initialMessages);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Form State
   const [newName, setNewName] = useState('');
@@ -48,6 +49,8 @@ const Messages: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newName || !newContent) return;
+
+    setIsSubmitting(true);
 
     const newMessage: Message = {
       id: Date.now(),
@@ -84,6 +87,8 @@ const Messages: React.FC = () => {
       console.log('Message Response:', result);
     } catch (error) {
       console.error('Error submitting message:', error);
+    } finally {
+      setIsSubmitting(false);
     }
 
     setMessages([newMessage, ...messages]);
@@ -227,8 +232,14 @@ const Messages: React.FC = () => {
                         <X size={24} />
                     </button>
                 </div>
-                
-                <form onSubmit={handleSubmit} className="p-6 space-y-5">
+
+                {isSubmitting ? (
+                  <div className="p-6 py-12 flex flex-col items-center justify-center text-center space-y-6">
+                    <div className="w-16 h-16 border-4 border-gold-900 border-t-gold-500 rounded-full animate-spin"></div>
+                    <p className="text-gold-500 text-sm tracking-widest">처리 중...</p>
+                  </div>
+                ) : (
+                  <form onSubmit={handleSubmit} className="p-6 space-y-5">
                     <div>
                         <label className="block text-xs text-gold-500/80 mb-2 uppercase tracking-wider">이름 (Name)</label>
                         <input
@@ -281,6 +292,7 @@ const Messages: React.FC = () => {
                         등록하기
                     </button>
                 </form>
+                )}
             </div>
         </div>
       )}

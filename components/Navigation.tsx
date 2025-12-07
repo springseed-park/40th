@@ -44,11 +44,11 @@ const Navigation: React.FC<NavigationProps> = ({ onOpenRsvp }) => {
     >
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
         {/* Logo */}
-        <div 
-          onClick={() => scrollToSection('hero')} 
+        <div
+          onClick={() => scrollToSection('hero')}
           className="cursor-pointer font-bold text-2xl tracking-widest text-gold-400 hover:text-white transition-colors drop-shadow-md"
         >
-          SINCE 1984
+          한남대학교 어울소리
         </div>
 
         {/* Desktop Menu */}

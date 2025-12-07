@@ -9,6 +9,7 @@ interface RSVPModalProps {
 const RSVPModal: React.FC<RSVPModalProps> = ({ isOpen, onClose }) => {
   const [submitted, setSubmitted] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     studentId: '83학번',
@@ -57,6 +58,7 @@ const RSVPModal: React.FC<RSVPModalProps> = ({ isOpen, onClose }) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
 
     const payload = {
       sheet: 'RSVP',
@@ -100,6 +102,8 @@ const RSVPModal: React.FC<RSVPModalProps> = ({ isOpen, onClose }) => {
     } catch (error) {
       console.error('Error submitting RSVP:', error);
       alert('신청 중 오류가 발생했습니다. 다시 시도해주세요.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -123,7 +127,12 @@ const RSVPModal: React.FC<RSVPModalProps> = ({ isOpen, onClose }) => {
         </button>
 
         <div className="p-8 md:p-10">
-          {!submitted ? (
+          {isSubmitting ? (
+            <div className="py-12 flex flex-col items-center justify-center text-center space-y-6">
+              <div className="w-16 h-16 border-4 border-gold-900 border-t-gold-500 rounded-full animate-spin"></div>
+              <p className="text-gold-500 text-sm tracking-widest">처리 중...</p>
+            </div>
+          ) : !submitted ? (
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="text-center mb-8">
                 <h3 className="text-2xl font-serif text-white mb-2">참가 신청</h3>
