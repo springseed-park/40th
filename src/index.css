@@ -10,8 +10,8 @@
   --color-midnight: #050510;
   --color-deepblue: #0a0a20;
 
-  --font-family-sans: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
-  --font-family-serif: Pretendard, serif;
+  --font-sans: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+  --font-serif: Pretendard, serif;
 
   --animate-fade-in-up: fadeInUp 1s ease-out forwards;
   --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
@@ -28,11 +28,14 @@
   }
 }
 
+* {
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+}
+
 body {
   background-color: #050510;
   color: white;
   overflow-x: hidden;
-  font-family: 'Pretendard', sans-serif;
 }
 
 /* Custom Scrollbar */
