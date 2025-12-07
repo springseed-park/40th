@@ -11,7 +11,7 @@
   --color-deepblue: #0a0a20;
 
   --font-sans: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
-  --font-serif: Pretendard, serif;
+  --font-serif: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
 
   --animate-fade-in-up: fadeInUp 1s ease-out forwards;
   --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
