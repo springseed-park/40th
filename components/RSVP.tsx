@@ -11,11 +11,28 @@ const RSVPModal: React.FC<RSVPModalProps> = ({ isOpen, onClose }) => {
   const [isClosing, setIsClosing] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
-    studentId: '',
+    studentId: '83학번',
     phone: '',
     companions: '본인 외 없음',
     message: ''
   });
+
+  // Generate student ID options: 83~99, 00~26
+  const generateStudentIdOptions = () => {
+    const options = [];
+    // 1983 to 1999
+    for (let i = 83; i <= 99; i++) {
+      options.push(`${i}학번`);
+    }
+    // 2000 to 2026
+    for (let i = 0; i <= 26; i++) {
+      const year = i.toString().padStart(2, '0');
+      options.push(`${year}학번`);
+    }
+    return options;
+  };
+
+  const studentIdOptions = generateStudentIdOptions();
 
   useEffect(() => {
     if (isOpen) {
@@ -72,7 +89,7 @@ const RSVPModal: React.FC<RSVPModalProps> = ({ isOpen, onClose }) => {
         setSubmitted(true);
         setFormData({
           name: '',
-          studentId: '',
+          studentId: '83학번',
           phone: '',
           companions: '본인 외 없음',
           message: ''
@@ -122,7 +139,13 @@ const RSVPModal: React.FC<RSVPModalProps> = ({ isOpen, onClose }) => {
                 <div className="grid grid-cols-2 gap-4">
                     <div>
                         <label className="block text-xs uppercase tracking-widest text-gold-500 mb-2">학번 *</label>
-                        <input type="text" required value={formData.studentId} onChange={(e) => setFormData({...formData, studentId: e.target.value})} className="w-full bg-black/40 border border-gray-700 text-white px-4 py-3 focus:outline-none focus:border-gold-500 transition-colors rounded-sm" placeholder="예: 04학번" />
+                        <select required value={formData.studentId} onChange={(e) => setFormData({...formData, studentId: e.target.value})} className="w-full bg-black/40 border border-gray-700 text-white px-4 py-3 focus:outline-none focus:border-gold-500 transition-colors rounded-sm appearance-none cursor-pointer">
+                          {studentIdOptions.map((option) => (
+                            <option key={option} value={option} className="bg-midnight text-white">
+                              {option}
+                            </option>
+                          ))}
+                        </select>
                     </div>
                     <div>
                         <label className="block text-xs uppercase tracking-widest text-gold-500 mb-2">연락처 *</label>
