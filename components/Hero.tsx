@@ -46,9 +46,6 @@ const Hero: React.FC<HeroProps> = ({ onOpenRsvp }) => {
               D-{dDay}
             </span>
           </div>
-          <p className="text-gray-200 text-xs md:text-sm tracking-[0.3em] uppercase mt-3 shadow-black drop-shadow-lg font-semibold">
-            2026년 5월 30일
-          </p>
         </div>
 
         {/* Title Group */}
@@ -66,7 +63,7 @@ const Hero: React.FC<HeroProps> = ({ onOpenRsvp }) => {
 
         <p className="text-white font-medium text-lg md:text-xl tracking-wide max-w-2xl mx-auto mb-12 animate-fade-in-up drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] bg-black/20 p-4 rounded-lg backdrop-blur-[2px] text-left" style={{ animationDelay: '0.5s' }}>
           일시 : 2026년 5월 30일<br/>
-          장소 : 한남대학교 무어아트홀
+          장소 : 한남대학교 무어아트홀(경상대후문 구 외국인학교내)
         </p>
         
         <div className="flex flex-col md:flex-row justify-center gap-4 animate-fade-in-up" style={{ animationDelay: '0.7s' }}>
