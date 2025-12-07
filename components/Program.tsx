@@ -60,6 +60,27 @@ const Program: React.FC = () => {
 
         {/* Info Grid (Map & Details) */}
         <div className="grid md:grid-cols-2 gap-8 mb-20">
+            {/* Details Section */}
+            <div className="flex flex-col justify-center space-y-8 p-4 md:p-8 bg-white/5 rounded-lg border border-white/10">
+                <div className="space-y-2">
+                    <div className="flex items-center space-x-3 text-gold-400 mb-1">
+                        <Clock size={20} />
+                        <span className="text-sm font-bold tracking-widest uppercase">일시 (Date & Time)</span>
+                    </div>
+                    <p className="text-2xl text-white font-serif">2026. 05. 30 (토)</p>
+                    <p className="text-xl text-gray-300">12:00 ~ 18:00</p>
+                </div>
+
+                <div className="space-y-2">
+                    <div className="flex items-center space-x-3 text-gold-400 mb-1">
+                        <MapPin size={20} />
+                        <span className="text-sm font-bold tracking-widest uppercase">장소 (Location)</span>
+                    </div>
+                    <p className="text-2xl text-white font-serif">한남대학교 무어아트홀</p>
+                    <p className="text-gray-300">대전 대덕구 한남로18번길 11</p>
+                </div>
+            </div>
+
             {/* Map Section */}
             <div
                 ref={mapRef}
@@ -80,50 +101,10 @@ const Program: React.FC = () => {
                         rel="noreferrer"
                         className="inline-flex items-center space-x-2 text-white bg-gold-600/90 hover:bg-gold-500 px-4 py-2 rounded-full backdrop-blur-sm transition-colors text-sm font-bold"
                     >
-                        <MapPin size={20} />
+                        <MapPin size={16} />
                         <span>카카오맵 보기</span>
                     </a>
                 </div>
-            </div>
-
-            {/* Details Section */}
-            <div className="flex flex-col justify-center space-y-8 p-4 md:p-8 bg-white/5 rounded-lg border border-white/10">
-                <div className="space-y-2">
-                    <div className="flex items-center space-x-3 text-gold-400 mb-1">
-                        <Clock size={20} />
-                        <span className="text-sm font-bold tracking-widest uppercase">일시 (Date & Time)</span>
-                    </div>
-                    <p className="text-2xl text-white font-serif">2026. 05. 30 (토)</p>
-                    <p className="text-xl text-gray-300">12:00 ~ 18:00</p>
-                </div>
-
-                <div className="space-y-2">
-                    <div className="flex items-center space-x-3 text-gold-400 mb-1">
-                        <MapPin size={20} />
-                        <span className="text-sm font-bold tracking-widest uppercase">장소 (Location)</span>
-                    </div>
-                    <p className="text-2xl text-white font-serif">한남대학교 무어아트홀</p>
-                    <p className="text-gray-300">대전 대덕구 한남로18번길 11</p>
-                </div>
-
-                {/* 잠시 주석처리
-                <div className="pt-6 border-t border-gray-700 grid grid-cols-2 gap-4">
-                    <div className="flex items-center space-x-3">
-                        <Phone className="text-gold-500" size={18} />
-                        <div>
-                            <p className="text-xs text-gray-500 uppercase">문의 (Contact)</p>
-                            <p className="text-gray-300 text-sm">010-1234-1234</p>
-                        </div>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                        <Mail className="text-gold-500" size={18} />
-                        <div>
-                            <p className="text-xs text-gray-500 uppercase">이메일 (Email)</p>
-                            <p className="text-gray-300 text-sm">event@club.com</p>
-                        </div>
-                    </div>
-                </div>
-                */}
             </div>
         </div>
         
