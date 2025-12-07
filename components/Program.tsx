@@ -60,32 +60,6 @@ const Program: React.FC = () => {
 
         {/* Info Grid (Map & Details) */}
         <div className="grid md:grid-cols-2 gap-8 mb-20">
-            {/* Map Section */}
-            <div
-                ref={mapRef}
-                className={`relative h-80 rounded-lg overflow-hidden border border-gray-700 shadow-2xl transition-all duration-1000 ${
-                    mapVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-                }`}
-            >
-                {/* Kakao Static Map - Same location as Roughmap */}
-                <img
-                    src="https://staticmap.kakao.com/map/mapservice?FORMAT=PNG&SCALE=2.5&MX=595535&MY=792985&S=0&IW=640&IH=360&LANG=0&COORDSTM=WCONGNAMUL&logo=kakao_logo"
-                    alt="행사 장소 지도"
-                    className="w-full h-full object-cover filter brightness-90 hover:brightness-100 transition-all duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-6">
-                    <a
-                        href="https://map.kakao.com/?map_type=TYPE_MAP&itemId=926047643&urlLevel=3&urlX=595535&urlY=792985"
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center space-x-2 text-white bg-gold-600/90 hover:bg-gold-500 px-4 py-2 rounded-full backdrop-blur-sm transition-colors text-sm font-bold"
-                    >
-                        <MapPin size={16} />
-                        <span>카카오맵 보기</span>
-                    </a>
-                </div>
-            </div>
-
             {/* Details Section */}
             <div className="flex flex-col justify-center space-y-8 p-4 md:p-8 bg-white/5 rounded-lg border border-white/10">
                 <div className="space-y-2">
@@ -121,6 +95,32 @@ const Program: React.FC = () => {
                             <p className="text-gray-300 text-sm">event@club.com</p>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            {/* Map Section */}
+            <div
+                ref={mapRef}
+                className={`relative h-80 rounded-lg overflow-hidden border border-gray-700 shadow-2xl transition-all duration-1000 ${
+                    mapVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+                }`}
+            >
+                {/* Kakao Static Map - Same location as Roughmap */}
+                <img
+                    src="https://staticmap.kakao.com/map/mapservice?FORMAT=PNG&SCALE=2.5&MX=595535&MY=792985&S=0&IW=640&IH=360&LANG=0&COORDSTM=WCONGNAMUL&logo=kakao_logo"
+                    alt="행사 장소 지도"
+                    className="w-full h-full object-cover filter brightness-90 hover:brightness-100 transition-all duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-6">
+                    <a
+                        href="https://map.kakao.com/?map_type=TYPE_MAP&itemId=926047643&urlLevel=3&urlX=595535&urlY=792985"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center space-x-2 text-white bg-gold-600/90 hover:bg-gold-500 px-4 py-2 rounded-full backdrop-blur-sm transition-colors text-sm font-bold"
+                    >
+                        <MapPin size={16} />
+                        <span>카카오맵 보기</span>
+                    </a>
                 </div>
             </div>
         </div>
