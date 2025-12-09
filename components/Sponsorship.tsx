@@ -130,9 +130,9 @@ const Sponsorship: React.FC = () => {
                     <CreditCard className="text-gold-500" size={24} />
                 </div>
                 <div>
-                    <p className="text-gray-400 text-xs uppercase tracking-widest mb-1">후원 계좌 (Bank Account)</p>
-                    <p className="text-white text-lg font-bold">카카오뱅크 3333-00-0000000</p>
-                    <p className="text-gray-400 text-sm">예금주: 40주년 준비위원회</p>
+                    <p className="text-gray-400 text-xs uppercase tracking-widest mb-1">후원 계좌</p>
+                    <p className="text-white text-lg font-bold">토스뱅크 1002-3155-0844</p>
+                    <p className="text-gray-400 text-sm">예금주: 어울소리</p>
                 </div>
             </div>
             <div className="text-left md:text-right">
