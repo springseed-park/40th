@@ -16,24 +16,24 @@ const ProgramRow: React.FC<{ item: ProgramItem; index: number }> = ({ item, inde
   const { elementRef, isVisible } = useIntersectionObserver();
 
   return (
-    <div 
+    <div
       ref={elementRef}
-      className={`flex flex-col md:flex-row border-b border-gray-800 py-8 transition-all duration-700 transform hover:bg-white/5 px-4 ${
+      className={`flex flex-col md:flex-row border-b border-gray-800 py-4 md:py-6 lg:py-8 transition-all duration-700 transform hover:bg-white/5 px-3 md:px-4 ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
       }`}
       style={{ transitionDelay: `${index * 100}ms` }}
     >
-      <div className="w-full md:w-1/4 mb-2 md:mb-0">
-        <span className="text-gold-400 font-serif text-2xl font-light">{item.time}</span>
+      <div className="w-full md:w-1/4 mb-1 md:mb-0">
+        <span className="text-gold-400 font-serif text-lg md:text-xl lg:text-2xl font-light">{item.time}</span>
       </div>
       <div className="w-full md:w-3/4 flex flex-col md:flex-row justify-between items-start md:items-center">
         <div>
-          <h3 className="text-xl font-bold text-white mb-1">{item.title}</h3>
-          <p className="text-gray-400 text-sm">{item.description}</p>
+          <h3 className="text-base md:text-lg lg:text-xl font-bold text-white mb-0.5 md:mb-1">{item.title}</h3>
+          <p className="text-gray-400 text-xs md:text-sm">{item.description}</p>
         </div>
         {item.speaker && (
-          <div className="mt-2 md:mt-0">
-             <span className="text-xs bg-gray-800 text-gray-300 px-3 py-1 rounded-full border border-gray-700">
+          <div className="mt-1.5 md:mt-0">
+             <span className="text-xs bg-gray-800 text-gray-300 px-2.5 md:px-3 py-0.5 md:py-1 rounded-full border border-gray-700">
                {item.speaker}
              </span>
           </div>
@@ -47,37 +47,37 @@ const Program: React.FC = () => {
   const { elementRef: mapRef, isVisible: mapVisible } = useIntersectionObserver();
 
   return (
-    <section id="program" className="py-24 bg-midnight">
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="text-center mb-16">
-          <Calendar className="mx-auto text-gold-500 mb-4" size={40} />
-          <h2 className="font-serif text-4xl text-white mb-4">행사 개요 및 일정</h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">
+    <section id="program" className="py-12 md:py-20 lg:py-24 bg-midnight">
+      <div className="max-w-6xl mx-auto px-4 md:px-6">
+        <div className="text-center mb-10 md:mb-16">
+          <Calendar className="mx-auto text-gold-500 mb-3 md:mb-4" size={32} />
+          <h2 className="font-serif text-2xl md:text-3xl lg:text-4xl text-white mb-3 md:mb-4">행사 개요 및 일정</h2>
+          <p className="text-gray-400 text-sm md:text-base max-w-2xl mx-auto">
             40년의 역사를 기념하는 뜻깊은 자리,<br/>
             선후배가 하나 되는 행사의 상세 일정을 안내해 드립니다.
           </p>
         </div>
 
         {/* Info Grid (Map & Details) */}
-        <div className="grid md:grid-cols-2 gap-8 mb-20">
+        <div className="grid md:grid-cols-2 gap-6 md:gap-8 mb-12 md:mb-20">
             {/* Details Section */}
-            <div className="flex flex-col justify-center space-y-8 p-4 md:p-8 bg-white/5 rounded-lg border border-white/10">
-                <div className="space-y-2">
-                    <div className="flex items-center space-x-3 text-gold-400 mb-1">
-                        <Clock size={20} />
-                        <span className="text-sm font-bold tracking-widest uppercase">일시 (Date & Time)</span>
+            <div className="flex flex-col justify-center space-y-6 md:space-y-8 p-4 md:p-8 bg-white/5 rounded-lg border border-white/10">
+                <div className="space-y-1 md:space-y-2">
+                    <div className="flex items-center space-x-2 md:space-x-3 text-gold-400 mb-1">
+                        <Clock size={16} className="md:w-5 md:h-5" />
+                        <span className="text-xs md:text-sm font-bold tracking-widest uppercase">일시 (Date & Time)</span>
                     </div>
-                    <p className="text-2xl text-white font-serif">2026. 05. 30 (토)</p>
-                    <p className="text-xl text-gray-300">12:00 ~ 18:00</p>
+                    <p className="text-lg md:text-xl lg:text-2xl text-white font-serif">2026. 05. 30 (토)</p>
+                    <p className="text-base md:text-lg lg:text-xl text-gray-300">12:00 ~ 18:00</p>
                 </div>
 
-                <div className="space-y-2">
-                    <div className="flex items-center space-x-3 text-gold-400 mb-1">
-                        <MapPin size={20} />
-                        <span className="text-sm font-bold tracking-widest uppercase">장소 (Location)</span>
+                <div className="space-y-1 md:space-y-2">
+                    <div className="flex items-center space-x-2 md:space-x-3 text-gold-400 mb-1">
+                        <MapPin size={16} className="md:w-5 md:h-5" />
+                        <span className="text-xs md:text-sm font-bold tracking-widest uppercase">장소 (Location)</span>
                     </div>
-                    <p className="text-2xl text-white font-serif">한남대학교 무어아트홀</p>
-                    <p className="text-gray-300">대전 대덕구 한남로18번길 11</p>
+                    <p className="text-lg md:text-xl lg:text-2xl text-white font-serif">한남대학교 무어아트홀</p>
+                    <p className="text-sm md:text-base text-gray-300">대전 대덕구 한남로18번길 11</p>
                 </div>
             </div>
 

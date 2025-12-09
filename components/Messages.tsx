@@ -139,25 +139,25 @@ const Messages: React.FC = () => {
   }, [isModalOpen]);
 
   return (
-    <section id="messages" className="py-24 bg-[#0a0a20] relative overflow-hidden">
+    <section id="messages" className="py-12 md:py-20 lg:py-24 bg-[#0a0a20] relative overflow-hidden">
        {/* Background Elements */}
        <div className="absolute top-0 right-0 w-96 h-96 bg-gold-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
        <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-900/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
 
-      <div className="max-w-6xl mx-auto px-6 relative z-10">
-        <div className="text-center mb-16">
-          <MessageSquare className="mx-auto text-gold-500 mb-4" size={40} />
-          <h2 className="font-serif text-4xl text-white mb-4">축하 메시지</h2>
-          <p className="text-gray-400 max-w-2xl mx-auto mb-8">
+      <div className="max-w-6xl mx-auto px-4 md:px-6 relative z-10">
+        <div className="text-center mb-10 md:mb-16">
+          <MessageSquare className="mx-auto text-gold-500 mb-3 md:mb-4" size={32} />
+          <h2 className="font-serif text-2xl md:text-3xl lg:text-4xl text-white mb-3 md:mb-4">축하 메시지</h2>
+          <p className="text-gray-400 text-sm md:text-base max-w-2xl mx-auto mb-6 md:mb-8">
             어울소리의 40번째 생일을 축하해주세요.<br/>
             여러분의 따뜻한 한마디가 큰 힘이 됩니다.
           </p>
-          
-          <button 
+
+          <button
             onClick={() => setIsModalOpen(true)}
-            className="inline-flex items-center gap-2 px-8 py-4 bg-gold-600 text-black font-bold text-lg rounded-sm hover:bg-gold-500 transition-all shadow-lg hover:shadow-gold-500/20 transform hover:-translate-y-1"
+            className="inline-flex items-center gap-2 px-6 py-3 md:px-8 md:py-4 bg-gold-600 text-black font-bold text-base md:text-lg rounded-sm hover:bg-gold-500 transition-all shadow-lg hover:shadow-gold-500/20 transform hover:-translate-y-1"
           >
-            <PenTool size={20} />
+            <PenTool size={18} className="md:w-5 md:h-5" />
             메시지 남기기
           </button>
         </div>
@@ -165,22 +165,22 @@ const Messages: React.FC = () => {
         {/* Message Grid - Full Width */}
         <div
             ref={elementRef}
-            className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+            className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6"
         >
             {isLoading ? (
               // Loading Skeleton
               [...Array(6)].map((_, idx) => (
                 <div
                   key={idx}
-                  className="bg-white/5 border border-white/10 rounded-lg p-6 animate-pulse"
+                  className="bg-white/5 border border-white/10 rounded-lg p-4 md:p-6 animate-pulse"
                   style={{ animationDelay: `${idx * 100}ms` }}
                 >
-                  <div className="space-y-3 mb-6">
+                  <div className="space-y-3 mb-4 md:mb-6">
                     <div className="h-3 bg-gray-700 rounded w-full"></div>
                     <div className="h-3 bg-gray-700 rounded w-5/6"></div>
                     <div className="h-3 bg-gray-700 rounded w-4/6"></div>
                   </div>
-                  <div className="flex justify-between items-end border-t border-white/5 pt-4">
+                  <div className="flex justify-between items-end border-t border-white/5 pt-3 md:pt-4">
                     <div className="space-y-2">
                       <div className="h-4 bg-gray-700 rounded w-20"></div>
                       <div className="h-3 bg-gray-700 rounded w-16"></div>
@@ -193,18 +193,18 @@ const Messages: React.FC = () => {
               messages.map((msg, idx) => (
                 <div
                   key={msg.id}
-                  className={`group relative bg-white/5 border border-white/10 rounded-lg p-6 hover:bg-white/10 hover:border-gold-500/30 transition-all duration-300 transform ${
+                  className={`group relative bg-white/5 border border-white/10 rounded-lg p-4 md:p-6 hover:bg-white/10 hover:border-gold-500/30 transition-all duration-300 transform ${
                     isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
                   }`}
                   style={{ transitionDelay: `${idx * 50}ms` }}
                 >
-                  <Quote className="absolute top-4 right-4 text-white/5 group-hover:text-gold-500/20 transition-colors" size={40} />
-                  <p className="text-gray-300 text-sm leading-relaxed mb-6 min-h-[4rem] relative z-10 break-keep">
+                  <Quote className="absolute top-3 right-3 md:top-4 md:right-4 text-white/5 group-hover:text-gold-500/20 transition-colors" size={32} />
+                  <p className="text-gray-300 text-xs md:text-sm leading-relaxed mb-4 md:mb-6 min-h-[3rem] md:min-h-[4rem] relative z-10 break-keep">
                     "{msg.content}"
                   </p>
-                  <div className="flex justify-between items-end border-t border-white/5 pt-4">
+                  <div className="flex justify-between items-end border-t border-white/5 pt-3 md:pt-4">
                     <div className="flex flex-col">
-                      <span className="text-gold-400 font-bold text-sm">{msg.name}</span>
+                      <span className="text-gold-400 font-bold text-xs md:text-sm">{msg.name}</span>
                       <span className="text-gray-500 text-xs mt-0.5">{msg.studentId}</span>
                     </div>
                     <span className="text-gray-600 text-xs font-mono">{msg.date}</span>
