@@ -66,7 +66,7 @@ const Sponsorship: React.FC = () => {
   };
 
   const copyAccountNumber = async () => {
-    const accountNumber = '1002-3155-0844';
+    const accountNumber = '토스뱅크 1002-3155-0844';
     try {
       await navigator.clipboard.writeText(accountNumber);
       setIsCopied(true);
