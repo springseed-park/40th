@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
-import { Heart, CreditCard } from 'lucide-react';
+import { Heart, CreditCard, Copy, Check } from 'lucide-react';
 import SponsorListModal from './SponsorListModal';
 
 const Sponsorship: React.FC = () => {
@@ -10,6 +10,7 @@ const Sponsorship: React.FC = () => {
   const [currentAmount, setCurrentAmount] = useState(0);
   const [goalAmount, setGoalAmount] = useState(10000000);
   const [isLoading, setIsLoading] = useState(true);
+  const [isCopied, setIsCopied] = useState(false);
 
   const percentage = Math.min((currentAmount / goalAmount) * 100, 100);
 
@@ -62,6 +63,17 @@ const Sponsorship: React.FC = () => {
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('ko-KR', { style: 'currency', currency: 'KRW' }).format(amount);
+  };
+
+  const copyAccountNumber = async () => {
+    const accountNumber = '1002-3155-0844';
+    try {
+      await navigator.clipboard.writeText(accountNumber);
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy:', err);
+    }
   };
 
   return (
@@ -131,7 +143,20 @@ const Sponsorship: React.FC = () => {
                 </div>
                 <div>
                     <p className="text-gray-400 text-xs uppercase tracking-widest mb-1">후원 계좌</p>
-                    <p className="text-white text-lg font-bold">토스뱅크 1002-3155-0844</p>
+                    <div className="flex items-center gap-2">
+                      <p className="text-white text-lg font-bold">토스뱅크 1002-3155-0844</p>
+                      <button
+                        onClick={copyAccountNumber}
+                        className="p-2 hover:bg-white/10 rounded transition-colors group relative"
+                        title="계좌번호 복사"
+                      >
+                        {isCopied ? (
+                          <Check className="text-green-400" size={18} />
+                        ) : (
+                          <Copy className="text-gray-400 group-hover:text-gold-400" size={18} />
+                        )}
+                      </button>
+                    </div>
                     <p className="text-gray-400 text-sm">예금주: 어울소리</p>
                 </div>
             </div>
