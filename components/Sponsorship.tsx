@@ -77,12 +77,12 @@ const Sponsorship: React.FC = () => {
   };
 
   return (
-    <section id="sponsorship" className="py-24 bg-midnight relative">
-      <div className="max-w-5xl mx-auto px-6">
-        <div className="text-center mb-16">
-          <Heart className="mx-auto text-gold-500 mb-4" size={40} />
-          <h2 className="font-serif text-4xl text-white mb-4">후원 안내</h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">
+    <section id="sponsorship" className="py-12 md:py-20 lg:py-24 bg-midnight relative">
+      <div className="max-w-5xl mx-auto px-4 md:px-6">
+        <div className="text-center mb-10 md:mb-16">
+          <Heart className="mx-auto text-gold-500 mb-3 md:mb-4" size={32} />
+          <h2 className="font-serif text-2xl md:text-3xl lg:text-4xl text-white mb-3 md:mb-4">후원 안내</h2>
+          <p className="text-gray-400 text-sm md:text-base max-w-2xl mx-auto">
             여러분의 소중한 후원이 40주년 행사를 더욱 빛나게 만듭니다.<br/>
             후원금은 행사 운영 및 동아리 발전 기금으로 투명하게 사용됩니다.
           </p>
@@ -91,7 +91,7 @@ const Sponsorship: React.FC = () => {
         {/* Progress Card */}
         <div
           ref={elementRef}
-          className={`bg-white/5 border border-white/10 rounded-2xl p-8 md:p-12 mb-12 transition-all duration-1000 transform ${
+          className={`bg-white/5 border border-white/10 rounded-2xl p-4 md:p-8 lg:p-12 mb-8 md:mb-12 transition-all duration-1000 transform ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
         >
@@ -113,14 +113,14 @@ const Sponsorship: React.FC = () => {
             </div>
           ) : (
             <>
-              <div className="flex justify-between items-end mb-4">
+              <div className="flex justify-between items-end mb-3 md:mb-4">
                 <div>
-                  <span className="text-gray-400 text-sm uppercase tracking-widest block mb-1">현재 모금 현황</span>
-                  <span className="text-3xl md:text-5xl font-bold text-white font-serif">{percentage.toFixed(1)}%</span>
+                  <span className="text-gray-400 text-xs md:text-sm uppercase tracking-widest block mb-1">현재 모금 현황</span>
+                  <span className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-white font-serif">{percentage.toFixed(1)}%</span>
                 </div>
                 <div className="text-right">
-                  <span className="text-gold-400 font-bold text-xl md:text-2xl">{formatCurrency(currentAmount)}</span>
-                  <span className="text-gray-500 text-sm block">/ 목표 {formatCurrency(goalAmount)}</span>
+                  <span className="text-gold-400 font-bold text-base md:text-xl lg:text-2xl">{formatCurrency(currentAmount)}</span>
+                  <span className="text-gray-500 text-xs md:text-sm block">/ 목표 {formatCurrency(goalAmount)}</span>
                 </div>
               </div>
 
@@ -136,34 +136,34 @@ const Sponsorship: React.FC = () => {
             </>
           )}
 
-          <div className="grid md:grid-cols-2 gap-8 items-center bg-black/30 p-6 rounded-lg border border-white/5">
-            <div className="flex items-center space-x-4">
-                <div className="bg-gold-500/20 p-3 rounded-full">
-                    <CreditCard className="text-gold-500" size={24} />
+          <div className="grid md:grid-cols-2 gap-6 md:gap-8 items-center bg-black/30 p-4 md:p-6 rounded-lg border border-white/5">
+            <div className="flex items-center space-x-3 md:space-x-4">
+                <div className="bg-gold-500/20 p-2 md:p-3 rounded-full">
+                    <CreditCard className="text-gold-500" size={20} />
                 </div>
                 <div>
                     <p className="text-gray-400 text-xs uppercase tracking-widest mb-1">후원 계좌</p>
-                    <div className="flex items-center gap-2">
-                      <p className="text-white text-lg font-bold">토스뱅크 1002-3155-0844</p>
+                    <div className="flex items-center gap-1.5 md:gap-2">
+                      <p className="text-white text-sm md:text-base lg:text-lg font-bold">토스뱅크 1002-3155-0844</p>
                       <button
                         onClick={copyAccountNumber}
-                        className="p-2 hover:bg-white/10 rounded transition-colors group relative"
+                        className="p-1.5 md:p-2 hover:bg-white/10 rounded transition-colors group relative"
                         title="계좌번호 복사"
                       >
                         {isCopied ? (
-                          <Check className="text-green-400" size={18} />
+                          <Check className="text-green-400" size={16} />
                         ) : (
-                          <Copy className="text-gray-400 group-hover:text-gold-400" size={18} />
+                          <Copy className="text-gray-400 group-hover:text-gold-400" size={16} />
                         )}
                       </button>
                     </div>
-                    <p className="text-gray-400 text-sm">예금주: 어울소리</p>
+                    <p className="text-gray-400 text-xs md:text-sm">예금주: 어울소리</p>
                 </div>
             </div>
             <div className="text-left md:text-right">
-                <button 
+                <button
                   onClick={() => setIsModalOpen(true)}
-                  className="px-6 py-3 bg-white/10 hover:bg-white/20 text-white rounded transition-colors text-sm"
+                  className="px-4 md:px-6 py-2 md:py-3 bg-white/10 hover:bg-white/20 text-white rounded transition-colors text-xs md:text-sm"
                 >
                     후원자 명단 보기
                 </button>

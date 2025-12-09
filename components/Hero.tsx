@@ -40,43 +40,43 @@ const Hero: React.FC<HeroProps> = ({ onOpenRsvp }) => {
       {/* Content */}
       <div className="relative z-10 text-center px-4 max-w-6xl mx-auto">
         {/* D-Day Counter */}
-        <div className="mb-10 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
-          <div className="inline-block border border-gold-500/50 bg-black/40 backdrop-blur-md px-6 py-2 rounded-full shadow-lg">
-            <span className="text-gold-400 font-bold tracking-widest text-lg md:text-2xl drop-shadow-md">
+        <div className="mb-6 md:mb-10 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+          <div className="inline-block border border-gold-500/50 bg-black/40 backdrop-blur-md px-4 py-1.5 md:px-6 md:py-2 rounded-full shadow-lg">
+            <span className="text-gold-400 font-bold tracking-widest text-base md:text-lg lg:text-2xl drop-shadow-md">
               D-{dDay}
             </span>
           </div>
         </div>
 
         {/* Title Group */}
-        <div className="mb-8 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
-          <div className="text-xl md:text-2xl lg:text-3xl text-gray-100 tracking-[0.2em] mb-4 font-bold font-sans drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+        <div className="mb-6 md:mb-8 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+          <div className="text-base md:text-xl lg:text-2xl xl:text-3xl text-gray-100 tracking-[0.2em] mb-3 md:mb-4 font-bold font-sans drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
             한남대학교 풍물놀이패
           </div>
 
-          <h1 className="mb-6 font-bold leading-tight">
-            <span className="text-3xl md:text-4xl lg:text-5xl relative z-10 text-transparent bg-clip-text bg-gradient-to-br from-gold-300 via-gold-500 to-gold-600 filter brightness-110 py-2">
+          <h1 className="mb-4 md:mb-6 font-bold leading-tight">
+            <span className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl relative z-10 text-transparent bg-clip-text bg-gradient-to-br from-gold-300 via-gold-500 to-gold-600 filter brightness-110 py-2">
               어울소리 창립 40주년 행사
             </span>
           </h1>
         </div>
 
-        <p className="text-white font-medium text-lg md:text-xl tracking-wide max-w-2xl mx-auto mb-12 animate-fade-in-up drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] bg-black/20 p-4 rounded-lg backdrop-blur-[2px] text-left" style={{ animationDelay: '0.5s' }}>
+        <p className="text-white font-medium text-sm md:text-lg lg:text-xl tracking-wide max-w-2xl mx-auto mb-8 md:mb-12 animate-fade-in-up drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] bg-black/20 p-3 md:p-4 rounded-lg backdrop-blur-[2px] text-left" style={{ animationDelay: '0.5s' }}>
           일시 : 2026년 5월 30일<br/>
           장소 : 한남대학교 무어아트홀(경상대후문 구 외국인학교내)
         </p>
-        
-        <div className="flex flex-col md:flex-row justify-center gap-4 animate-fade-in-up" style={{ animationDelay: '0.7s' }}>
-          <button 
+
+        <div className="flex flex-col md:flex-row justify-center gap-3 md:gap-4 animate-fade-in-up" style={{ animationDelay: '0.7s' }}>
+          <button
             onClick={onOpenRsvp}
-            className="group relative min-w-[200px] px-8 py-4 bg-gold-600 text-black font-bold uppercase tracking-widest hover:bg-gold-500 transition-all rounded-sm shadow-xl hover:shadow-gold-500/30 border border-gold-400"
+            className="group relative min-w-[160px] md:min-w-[200px] px-6 py-3 md:px-8 md:py-4 bg-gold-600 text-black text-sm md:text-base font-bold uppercase tracking-widest hover:bg-gold-500 transition-all rounded-sm shadow-xl hover:shadow-gold-500/30 border border-gold-400"
           >
             참가 신청하기
           </button>
-          
-          <button 
+
+          <button
             onClick={() => document.getElementById('sponsorship')?.scrollIntoView({ behavior: 'smooth' })}
-            className="group relative min-w-[200px] px-8 py-4 border-2 border-white text-white font-bold uppercase tracking-widest hover:border-gold-500 hover:text-gold-400 hover:bg-black/80 transition-all rounded-sm backdrop-blur-md bg-black/40 shadow-lg"
+            className="group relative min-w-[160px] md:min-w-[200px] px-6 py-3 md:px-8 md:py-4 border-2 border-white text-white text-sm md:text-base font-bold uppercase tracking-widest hover:border-gold-500 hover:text-gold-400 hover:bg-black/80 transition-all rounded-sm backdrop-blur-md bg-black/40 shadow-lg"
           >
             후원하기
           </button>

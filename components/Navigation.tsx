@@ -39,14 +39,14 @@ const Navigation: React.FC<NavigationProps> = ({ onOpenRsvp }) => {
   return (
     <nav
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-midnight/90 backdrop-blur-md shadow-lg py-4' : 'bg-transparent py-6'
+        isScrolled ? 'bg-midnight/90 backdrop-blur-md shadow-lg py-3 md:py-4' : 'bg-transparent py-4 md:py-6'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 flex justify-between items-center">
         {/* Logo */}
         <div
           onClick={() => scrollToSection('hero')}
-          className="cursor-pointer font-bold text-2xl tracking-widest text-gold-400 hover:text-white transition-colors drop-shadow-md"
+          className="cursor-pointer font-bold text-base md:text-xl lg:text-2xl tracking-widest text-gold-400 hover:text-white transition-colors drop-shadow-md"
         >
           한남대학교 어울소리
         </div>
